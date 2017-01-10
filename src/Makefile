@@ -1,5 +1,5 @@
 CXX=g++
-EXES=sparse propagate defocus_map test_vec cl_test dof matting
+EXES=sparse propagate_blur defocus_map test_vec cl_test dof matting
 
 CFLAGS=-Wall -c -O2 -std=c++11 
 LFLAGS=-lOpenCL -lglog -lgflags
@@ -13,7 +13,7 @@ matting: matting.o fileIO.o
 sparse: sparse.o fileIO.o edge.o defocus.o guidedfilter.o
 	$(CXX) $^ $(LFLAGS) -o $@
 
-propagate_blur: fileIO.o guidedfilter.o propagate_blur.o propagate.o
+propagate_blur: fileIO.o guidedfilter.o propagate_blur.o propagate.o vec.o
 	$(CXX) $? $(LFLAGS) -o $@
 
 defocus_map: fileIO.o guidedfilter.o edge.o defocus.o defocus_map.o propagatecl.o cl_helper.o vec.o propagate.o
